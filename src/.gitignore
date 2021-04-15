@@ -1,0 +1,14 @@
+controller/*.js
+controller/*.map
+
+database/*.js
+database/*.map
+
+middleware/*.js
+middleware/*.map
+
+utils/*.js
+utils/*.map
+
+*.js
+*.map
