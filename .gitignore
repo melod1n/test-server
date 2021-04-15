@@ -77,5 +77,8 @@ typings/
 
 .idea
 
-.js
-.map
+*/*.js
+*/*.map
+
+*/*/*.js
+*/*/*.map
