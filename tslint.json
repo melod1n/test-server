@@ -5,7 +5,6 @@
       "single"
     ],
     "semicolon": true,
-    "encoding": true,
-    "deprecation": true
+    "encoding": true
   }
 }

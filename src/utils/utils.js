@@ -12,6 +12,16 @@ class Utils {
     error(code, message) {
         return errorHandler.error({ code: code, message: message });
     }
+    requireNumber(key, value) {
+        if (!value)
+            return this.error(0, `${key} not specified`);
+        if (typeof value !== 'number') {
+            value = parseInt(value);
+            if (!value)
+                return this.error(0, `${key} must be integer`);
+        }
+        return value;
+    }
 }
 exports.Utils = Utils;
 //# sourceMappingURL=utils.js.map

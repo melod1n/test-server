@@ -8,7 +8,6 @@ const express_1 = __importDefault(require("express"));
 const log4js_1 = __importDefault(require("log4js"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const routing_controllers_1 = require("routing-controllers");
-const user_controller_1 = require("./controller/user-controller");
 const testing_controller_1 = require("./controller/testing-controller");
 const body_parser_1 = __importDefault(require("body-parser"));
 const express_http_context_1 = __importDefault(require("express-http-context"));
@@ -19,14 +18,14 @@ logger.level = process.env.LOG_LEVEL;
 const port = process.env.PORT;
 exports.app = express_1.default();
 exports.app.use(body_parser_1.default.json());
+exports.app.use(body_parser_1.default.urlencoded({ extended: true }));
 exports.app.use(express_http_context_1.default.middleware);
 routing_controllers_1.useExpressServer(exports.app, {
-    controllers: [user_controller_1.UserController, testing_controller_1.TestingController],
+    controllers: [testing_controller_1.TestingController],
     middlewares: [global_error_handler_1.GlobalErrorHandler],
     defaultErrorHandler: false
 });
-// app.use(bodyParser.urlencoded({extended:true}));
-exports.app.use((req, res, next) => {
+exports.app.use((req, res) => {
     express_http_context_1.default.ns.bindEmitter(req);
     express_http_context_1.default.ns.bindEmitter(res);
 });

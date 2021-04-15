@@ -15,35 +15,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TestingController = void 0;
 const routing_controllers_1 = require("routing-controllers");
 require("reflect-metadata");
-const db_1 = require("../database/db");
+const database_1 = require("../database/database");
 const utils_1 = require("../utils/utils");
-const database = new db_1.Database();
+const database = new database_1.Database();
 const utils = new utils_1.Utils();
 let TestingController = class TestingController {
-    checkUserTesting(id) {
-        if (!id)
-            return utils.error(0, 'wrong type');
+    checkUserTesting(params) {
+        const userId = utils.requireNumber('userId', params.userId);
+        if (typeof userId !== 'number')
+            return userId;
         const users = database.getTestUsers();
-        const n = users.includes(id) ? 1 : 0;
-        const json = JSON.parse(`{"in_testing": ${n}}`);
-        return JSON.stringify(json);
+        return { inTesting: users.includes(userId) };
     }
     setUserTesting(params) {
-        console.log(JSON.stringify(params));
+        const userId = utils.requireNumber('userId', params.userId);
+        if (typeof userId !== 'number')
+            return userId;
         if (params.accessToken !== process.env.TOKEN)
             return utils.error(1, 'Wrong token');
-        if (!params.userId)
-            return utils.error(2);
-        database.setUserTesting(params.userId);
+        database.setUserTesting(userId);
         return { success: 1 };
     }
 };
 __decorate([
-    routing_controllers_1.Get('/testing/:id'),
+    routing_controllers_1.Get('/testing.check'),
     routing_controllers_1.ContentType('application/json'),
-    __param(0, routing_controllers_1.Param('id')),
+    __param(0, routing_controllers_1.QueryParams()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], TestingController.prototype, "checkUserTesting", null);
 __decorate([
