@@ -26,7 +26,7 @@ export class TestingController {
         const userId = utils.requireNumber('userId', params.userId);
         if (typeof userId !== 'number') return userId;
 
-        if (params.accessToken !== process.env.TOKEN) return utils.error(1, 'Wrong token');
+        if (params.access_token !== process.env.TOKEN) return utils.error(1, 'Wrong token');
 
         database.setUserTesting(<number>userId);
 
