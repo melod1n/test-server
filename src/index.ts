@@ -11,9 +11,9 @@ import {GlobalErrorHandler} from './middleware/global-error-handler';
 env.config();
 
 const logger = log4js.getLogger();
-logger.level = process.env.LOG_LEVEL;
+logger.level = 'ALL';
 
-const port = process.env.PORT;
+const port = process.env['PORT'];
 
 export const app: Express = express();
 app.use(bodyParser.json());
